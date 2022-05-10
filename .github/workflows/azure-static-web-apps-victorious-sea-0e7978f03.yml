@@ -25,7 +25,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: CI & Run & Test
-      working-directory: client
+      working-directory: templates/slc_template_typescript
       run: |
         npm ci
         CI=false npm run build --if-present
