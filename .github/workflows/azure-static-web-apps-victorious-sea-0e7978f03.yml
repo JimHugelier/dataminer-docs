@@ -22,7 +22,7 @@ jobs:
           user-name: "Jim Hugelier"
           user-email: "jim.hugelier@skyline.be"
           message: "Auto-build the typescript files and convert to JS"
-          directories: templates/slc_template_angular/src
+          directories: templates/slc_template_angular
   build_job:
     runs-on: windows-latest
     name: Build Job
