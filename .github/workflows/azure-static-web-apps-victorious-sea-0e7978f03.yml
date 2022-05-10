@@ -10,21 +10,19 @@ on:
       - main
 
 jobs:
-  build:
-      runs-on: ubuntu-latest
-      steps: 
-          - name: Checkout project
-            uses: actions/checkout@v2
-          - name: Setup Node.js
-            uses: actions/setup-node@v2.1.4
-            with:
-              node-version: 12
-          - name: Build and push
-            uses: alexthemaster/action-build-typescript@v1.2.1
-            with:
-              pushToBranch: true
-              branch: 'template/slc-template'
-              githubToken: ${{ secrets.ACCESS_TOKEN }} # required if you use the pushToBranch option
+  build-typescript-and-push:
+    runs-on: ubuntu-latest
+    name: Builds Typescript
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Building Typescript
+        uses: FuLagann/tsc-build-push@v1
+        with:
+          user-name: "Jim Hugelier"
+          user-email: "jim.hugelier@skyline.be"
+          message: "Automatically built unbuilt typescript"
+          directories: templates/slc_template_typescript
   build_job:
     runs-on: windows-latest
     name: Build Job
