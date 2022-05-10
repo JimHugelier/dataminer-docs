@@ -22,8 +22,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache-dependency-path: client
-        cache: 'npm'
     - name: Checkout
       uses: actions/checkout@v2
     - name: CI & Run & Test
