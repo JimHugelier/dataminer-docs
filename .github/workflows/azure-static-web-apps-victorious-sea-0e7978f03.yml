@@ -10,22 +10,28 @@ on:
       - main
 
 jobs:
-  build-typescript-and-push:
+  build:
     runs-on: ubuntu-latest
-    name: Builds Typescript
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: main
-          fetch-depth: '0'
-      - name: Building Typescript
-        uses: FuLagann/tsc-build-push@v1
-        with:
-          user-name: "Jim Hugelier"
-          user-email: "jim.hugelier@skyline.be"
-          message: "Automatically built unbuilt typescript"
-          directories: templates/slc_template_typescript
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache-dependency-path: client
+        cache: 'npm'
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: CI & Run & Test
+      working-directory: client
+      run: |
+        npm ci
+        CI=false npm run build --if-present
+        cp -R build ../templates/slc_template
   build_job:
     runs-on: windows-latest
     name: Build Job
